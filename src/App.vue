@@ -1,19 +1,29 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <navComponentVue/>
     <router-view/>
+    <footerComponent/>
   </div>
 </template>
+<script>
+import navComponentVue from './components/navComponent.vue';
+import footerComponent from './components/footer.vue' ; 
+export default {
+  name: 'App' , 
+  components:{
+      navComponentVue  ,
+      footerComponent 
+  }
+}
+</script>
+
+
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 

@@ -1,59 +1,107 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+      <div class="body">
+          <!-- <h1>{{msg}}</h1> -->
+          <div class="flex">
+              <div class="home-head" >
+                <h1 class="heading">Skills speak louder than words</h1>
+                <router-link to="/login" class="btn btn-primary get-started" >Get started</router-link> 
+                <p class="quotes"> “Experience is the name everyone gives to their mistakes.” </p> 
+              </div>
+    
+              <div>
+                <table class="table table-hover">
+                  <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                  </tr>
+                  <tbody>
+                    <tr v-for="Users in Users" :key="Users._id" >
+                      <td>
+                          {{Users.name}}
+                      </td>
+                      <td>
+                          {{ Users.total }}
+                      </td>
+                  </tr> 
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        <div class="down">
+          <img class ="img" src="./static/homeui.jpg" alt="UI">
+        </div>
+      </div>
   </div>
 </template>
 
 <script>
+import {fetchUsers} from '../services/getUser' ;
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  } , 
+  data() {
+    return {
+      Users : []
+    }
+  },
+  methods:{
+
+  }, 
+  created() {
+    fetchUsers()
+      .then(Users=> { this.Users = Users.data ; } )
+      .catch(error => console.log(error))  
   }
 }
+
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
+
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+
+.down{
+  text-align: center;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.img{
+  width: 78%;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.get-started{
+  background-color: #7599BD;
+  font-weight: bold;
+  margin : 15px;
 }
-a {
-  color: #42b983;
+.home-head{
+  text-align: center;
 }
+.quotes{
+  font-size: 1.5em;
+  text-align: center;
+}
+.heading{
+  text-align: center;
+  font-size: 6em;
+}
+.table {
+  border: 1px solid rgba(75, 75, 75, 0.216);
+  width: auto;
+  height: auto;
+}
+
+ tr {
+   height: auto;
+}
+.flex{
+  display: flex;
+  justify-content: space-between;
+}
+
+.body {
+  margin: 4em;
+}
+ 
 </style>
